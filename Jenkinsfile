@@ -3,16 +3,13 @@ pipeline {
 
     stages {
         stage('Run Unit Tests') {
-            // Use a specific Docker image as the build environment for this stage.
-            // Jenkins will automatically pull this image and run the steps inside it.
-            agent {
-                docker { image 'python:3.9-slim' }
-            }
             steps {
                 echo 'Running tests inside a Python container...'
-                // Install dependencies and run pytest
-                sh 'pip install pytest'
-                sh 'pytest tests/'
+                // Manually run the container and mount the workspace volume.
+                // This gives us precise control over the path format.
+                bat '''
+                    docker run --rm -v "%WORKSPACE%:/app" -w /app python:3.9-slim sh -c "pip install pytest && pytest tests/"
+                '''
             }
         }
         stage('Build Docker Image') {
