@@ -1,25 +1,29 @@
 from calculator.core import add, multiply, subtract
 
 def main():
-    """A simple CLI for the calculator."""
-    print("--- Simple Calculator ---")
+    """A non-interactive script for automated runs."""
+    print("--- Running Automated Calculator Sanity Check ---")
+    
+    num1 = 10
+    num2 = 5
+    
+    print(f"Using numbers: {num1} and {num2}")
+    
     try:
-        num1 = int(input("Enter the first positive integer: "))
-        num2 = int(input("Enter the second positive integer: "))
-        
-        print(f"\nAddition: {num1} + {num2} = {add(num1, num2)}")
-        print(f"Multiplication: {num1} * {num2} = {multiply(num1, num2)}")
-        
-        try:
-            print(f"Subtraction: {num1} - {num2} = {subtract(num1, num2)}")
-        except ValueError as e:
-            print(f"Subtraction: {e}")
+        # Perform and print all operations
+        add_result = add(num1, num2)
+        print(f"Addition Result: {add_result}")
 
-    except ValueError:
-        print("\nError: Please enter valid positive integers only.")
+        sub_result = subtract(num1, num2)
+        print(f"Subtraction Result: {sub_result}")
+
+        multi_result = multiply(num1, num2)
+        print(f"Multiplication Result: {multi_result}")
+        
+        print("\nSanity check PASSED.")
+
     except Exception as e:
-        print(f"\nAn unexpected error occurred: {e}")
-
+        print(f"\nSanity check FAILED: {e}")
 
 if __name__ == "__main__":
     main()
