@@ -22,3 +22,7 @@ CI/CD Pipeline for a Basic Calculator app using Jenkins and Docker
 2. Configured Jenkins to listen to the git repository for new commits pushed.
 3. Added webhook in GitHub using the public URL.
 4. Tested the pipeline execution after pushing commits.
+
+## Pushing to DockerHub
+
+-   Pushed the Docker image of the [kunal1323/calculator-app](https://hub.docker.com/r/kunal1323/calculator-app) to DockerHub
