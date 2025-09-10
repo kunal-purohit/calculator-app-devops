@@ -1,5 +1,8 @@
 pipeline {
-    agent { docker { image "python:3.9-slim" }
+    agent { docker { 
+            image "python:3.9-slim"
+            args '-u root' 
+        }
     } // Runs on the main Jenkins node or any available agent.
 
     stages {
