@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Run Unit Tests') {
             steps {
-                sh 'python -m pip install pytest && pytest tests/'
+                sh 'pip install --user pytest && ~/.local/bin/pytest tests/'
             }
         }
     }
