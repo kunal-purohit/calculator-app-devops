@@ -1,14 +1,11 @@
 pipeline {
-    agent {
-        docker {
-            image "python:3.9-slim"
-        }
+    agent { docker { image "python:3.9-slim" }
     } // Runs on the main Jenkins node or any available agent.
 
     stages {
         stage('Run Unit Tests') {
             steps {
-                sh 'pip install --user pytest && ~/.local/bin/pytest tests/'
+                sh 'pip install pytest && pytest tests/'
             }
         }
     }
