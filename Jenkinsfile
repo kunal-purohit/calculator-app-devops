@@ -21,11 +21,11 @@ pipeline {
             }
         }
 
-        // stage('Run Unit Tests') {
-        //     steps {
-        //         sh 'pytest tests/'
-        //     }
-        // }
+        stage('Run Unit Tests') {
+            steps {
+                sh 'pytest tests/ --maxfail=1'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -35,15 +35,15 @@ pipeline {
             }
         }
 
-        stage('Test in built image') {
-            steps {
-                script {
-                    dockerImageLatest.inside {
-                        sh 'pytest tests/ --maxfail=1'
-                    }
-                }
-            }
-        }
+        // stage('Test in built image') {
+        //     steps {
+        //         script {
+        //             dockerImageLatest.inside {
+        //                 sh 'pytest tests/ --maxfail=1'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Push Image to DockerHub') {
             steps {

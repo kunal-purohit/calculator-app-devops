@@ -1,5 +1,3 @@
-# calculator/core.py
-
 def add(a, b):
     """Adds two positive integers."""
     if not (isinstance(a, int) and isinstance(b, int) and a >= 0 and b >= 0):
