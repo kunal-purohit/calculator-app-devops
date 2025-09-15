@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
+        DOCKERHUB_CREDENTIALS = 'docker-credentials'
         DOCKERHUB_REPO = "kunal1323/calculator-app"
     }
 
@@ -48,7 +48,7 @@ pipeline {
         stage('Push Image to DockerHub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.dockerhub.com', "${env.DOCKERHUB_CREDENTIALS}") {
+                    docker.withRegistry('https://registry.hub.dockerhub.com', DOCKERHUB_CREDENTIALS) {
                         dockerImageLatest.push("latest")
                     }
                 }
