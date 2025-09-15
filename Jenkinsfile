@@ -62,10 +62,6 @@ pipeline {
         failure {
             echo 'Pipeline failed. Check logs!'
         }
-        always {
-            echo "Cleaning up local Docker image..."
-            sh "docker rmi \"${env.DOCKERHUB_REPO}:latest\" || true"
-        }
     }
 }
 
