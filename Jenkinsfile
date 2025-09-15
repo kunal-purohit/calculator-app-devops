@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
         DOCKERHUB_REPO = "kunal1323/calculator-app"
     }
 
