@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.9-slim'
-            args '-u root:root'
+            args '-u root:root -v /usr/bin/docker:/usr/bin/docker'
         }
     }
 
@@ -27,8 +27,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def tag = "${env.BUILD_NUMBER}"
-                    dockerImage = docker.build("${env.DOCKERHUB_REPO}:${tag}")
                     dockerImageLatest = docker.build("${env.DOCKERHUB_REPO}:latest")
                 }
             }
@@ -38,7 +36,7 @@ pipeline {
             steps {
                 script {
                     dockerImage.inside {
-                        sh 'pytest tests/'
+                        sh 'pytest tests/ --maxfail=1'
                     }
                 }
             }
@@ -48,7 +46,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.dockerhub.com', "${DOCKERHUB_CREDENTIALS}") {
-                        dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImageLatest.push("latest")
                     }
                 }
@@ -61,6 +58,10 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check logs!'
+        }
+        always {
+            echo "Cleaning up local Docker image..."
+            sh "docker rmi \"$DOCKERHUB_REPO:latest\" || true"
         }
     }
 }
