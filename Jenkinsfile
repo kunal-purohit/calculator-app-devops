@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.9-slim'
-            args '-u root:root -v /usr/bin/docker:/usr/bin/docker'
+            image 'python:3.11-slim'
+            args '-u root:root -v -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -14,7 +14,10 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'pip install --no-cache-dir -r requirements.txt'
+                sh '''
+                    apt-get update && apt-get install -y docker.io
+                    pip install --no-cache-dir -r requirements.txt
+                '''
             }
         }
 
