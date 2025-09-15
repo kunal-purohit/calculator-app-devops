@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     def tag = "${env.BUILD_NUMBER}"
-                    dockerImage = docker.build("${env.DOCKERHUB_REPO}:{tag}")
+                    dockerImage = docker.build("${env.DOCKERHUB_REPO}:${tag}")
                     dockerImageLatest = docker.build("${env.DOCKERHUB_REPO}:latest")
                 }
             }
