@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.9-slim'
-            args '-u root:root -v -v /var/run/docker.sock:/var/run/docker.sock'
+            args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -38,7 +38,7 @@ pipeline {
         stage('Test in built image') {
             steps {
                 script {
-                    dockerImage.inside {
+                    dockerImageLatest.inside {
                         sh 'pytest tests/ --maxfail=1'
                     }
                 }
