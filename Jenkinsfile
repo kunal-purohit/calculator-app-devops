@@ -48,7 +48,7 @@ pipeline {
         stage('Push Image to DockerHub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.dockerhub.com', "${DOCKERHUB_CREDENTIALS}") {
+                    docker.withRegistry('https://registry.hub.dockerhub.com', "${env.DOCKERHUB_CREDENTIALS}") {
                         dockerImageLatest.push("latest")
                     }
                 }
@@ -64,7 +64,7 @@ pipeline {
         }
         always {
             echo "Cleaning up local Docker image..."
-            sh "docker rmi \"$DOCKERHUB_REPO:latest\" || true"
+            sh "docker rmi \"${env.DOCKERHUB_REPO}:latest\" || true"
         }
     }
 }
