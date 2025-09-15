@@ -1,12 +1,10 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir pytest
+# Copy all the project files into the container at /app
+COPY . .
 
-# Copy the application code into the container
-COPY calculator/ /app/calculator/
-COPY main.py /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the default command to run when the container starts
 CMD ["python", "main.py"]
