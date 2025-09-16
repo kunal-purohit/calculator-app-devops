@@ -10,7 +10,7 @@ CI/CD Pipeline for a Basic Calculator app using Jenkins and Docker
 4. Added Tests using `pytest` package in python.
 5. Built a CI/CD pipeline using Jenkinsfile.
 6. Containerized it using Dockerfile.
-7. Built and Tested the entire pipeline.
+7. Built the Docker image, tested it and pushed it to DockerHub.
 
 ## Webhooks
 
