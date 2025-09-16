@@ -12,21 +12,23 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Install Dependencies & Run tests') {
+            agent {
+                docker { image 'python:3.9-slim' }
+            }
             steps {
                 sh '''
-                    apk update && apk add --no-cache python3 py3-pip
                     pip3 install --no-cache-dir -r requirements.txt
+                    pytest tests/ --maxfail=1
                 '''
-                // apt-get update && apt-get install -y docker.io
             }
         }
 
-        stage('Run Unit Tests') {
-            steps {
-                sh 'python3 -m pytest tests/ --maxfail=1'
-            }
-        }
+        // stage('Run Unit Tests') {
+        //     steps {
+        //         sh 'python3 -m pytest tests/ --maxfail=1'
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
