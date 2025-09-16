@@ -13,14 +13,15 @@ pipeline {
 
     stages {
         stage('Install Dependencies & Run tests') {
-            agent {
-                docker { image 'python:3.9-slim' }
-            }
             steps {
-                sh '''
-                    pip3 install --no-cache-dir -r requirements.txt
-                    pytest tests/ --maxfail=1
-                '''
+                script {
+                    docker.image('python:3.9-slim').inside() {
+                        sh '''
+                            pip3 install --no-cache-dir -r requirements.txt
+                            pytest tests/ --maxfail=1
+                        '''
+                    }
+                }
             }
         }
 
